@@ -1,0 +1,1 @@
+Contains the product ecosystem specifications for Moth Gold.
