@@ -2,15 +2,25 @@
 
 **Purpose:** Define the expected data-layer conventions and migration discipline for the Moth Gold ecosystem.
 
-**Confidence note:** verified against the empty repository state in `moth-gold-api`, `moth-gold-web`, and `moth-gold-android` on 2026-11-12. The code wins (see 16).
+**Confidence note:** verified against the empty application repositories on 2026-11-12; baseline schema added 2026-11-19 (`db-schema/v1.0.0.sql`). The code wins (see 16).
 
 ## Current verified state
 
-No database schema or migrations exist in the workspace. This is a placeholder to be replaced by a real schema map as soon as the API repository includes persistence work.
+The MVP baseline is checked in at `moth-gold-specs/db-schema/v1.0.0.sql`, with the design rationale in `moth-gold-specs/db-design-choices.md`. The application repos are still empty, so runtime access patterns remain unverified.
+
+| Area | Tables in v1.0.0 |
+|---|---|
+| Identity & onboarding | `account`, `credential`, `consent`, `policy`, `policy_acceptance`, `pilot_area`, `staff_role_assignment` |
+| Configuration | `category`, `setting`, `backup_run`, `account_deletion_request` |
+| Listings | `photo`, `offer`, `request`, `request_reply` |
+| Inbox & trust | `conversation`, `message`, `exchange`, `exchange_confirmation`, `review` |
+| Moderation | `report`, `moderation_action`, `account_block` |
 
 ## Principles
 
 - One schema change should have one migration story.
+- `*_uuid` columns are the foreign keys on local and server; the server-only `id` is only a primary-key index (see `db-design-choices.md` §2–3).
+- Schema file versions follow `db-design-choices.md` §10: patch = forward migration, minor = full Supabase snapshot.
 - Every persisted field should have an owner and an expected lifecycle.
 - Avoid silent data-loss paths, especially soft-delete or hard-delete handling.
 - Use constraints and indexes to protect correctness, not just performance.
@@ -28,4 +38,4 @@ No database schema or migrations exist in the workspace. This is a placeholder t
 - Applying destructive deletes without a retention review
 - Changing identity semantics in place
 
-This document will become concrete when the first data model and migration files exist.
+Schema files are additive and idempotent; read the header of `db-schema/v1.0.0.sql` before changing any table.

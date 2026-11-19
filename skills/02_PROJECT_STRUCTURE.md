@@ -16,6 +16,10 @@ moth-gold-ecosystem/
 ├── handoff.md
 ├── moth-gold-specs/
 │   ├── AGENTS.md
+│   ├── business-logic-v1.1.md
+│   ├── db-design-choices.md
+│   ├── db-schema/
+│   │   └── v1.0.0.sql       # baseline; versioning rule in db-design-choices.md §10
 │   ├── git-guidelines.md
 │   └── skills/
 │       ├── 00_INDEX.md
@@ -41,7 +45,7 @@ moth-gold-ecosystem/
 - `moth-gold-api`: server routes, domain logic, persistence models, background jobs, validators, and auth middleware.
 - `moth-gold-web`: page routes, components, hooks, state, and browser-specific logic.
 - `moth-gold-android`: screens, view models, adapters, native services, and platform integration code.
-- `moth-gold-specs`: schemas, contracts, and engineering guidance that the apps share.
+- `moth-gold-specs`: schemas, contracts, and engineering guidance that the apps share; `db-schema/` holds the versioned SQL baseline and forward migrations (see `db-design-choices.md` §10).
 
 ## What must not go here
 
